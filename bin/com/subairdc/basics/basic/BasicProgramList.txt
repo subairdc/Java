@@ -1,0 +1,11 @@
+1. HelloWorld
+2. Odd or Even
+3. Swap two number
+4. Factorial (normal forloop)
+5. Factorial (recursion method)
+6. Prime Number (Gn num check)
+7. Prime number (btn 1 to n check)
+8. Armstrong Number
+9. Neon Number
+10. Find Big Number using Ternay Operator
+11. Palindrome number
