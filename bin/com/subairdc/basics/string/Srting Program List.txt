@@ -1,0 +1,5 @@
+1. SubString
+2. Reverse String
+3. String Reverse
+4. Anagrams
+5. String Token
