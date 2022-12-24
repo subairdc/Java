@@ -25,6 +25,13 @@ public class CustomerHandler {
 			return;
 		}
 		
+		if(!isValidPassword(password)) {
+			System.out.println("Add customer failed: Invalid Password");
+			return;
+		}
+		
+		password = getEncryptedPassword(password);
+		
 		Bank.refCustomerId++;
 		Bank.refAccountNo++;
 		
@@ -33,7 +40,8 @@ public class CustomerHandler {
 				Bank.refCustomerId,
 				Bank.refAccountNo, 
 				name, password, 
-				Bank.INITIAL_BAL);
+				Bank.INITIAL_BAL
+		);
 		Bank.customersList.add(customer);
 		
 		System.out.println(customer.toString()); //print new Customer Details
@@ -45,6 +53,47 @@ public class CustomerHandler {
 			e.printStackTrace();
 		}
 		
+		
+		
+	}
+
+	private boolean isValidPassword(String password) {
+		
+		char[] passwordChar = password.toCharArray();
+		
+		for(char ch : passwordChar) {
+			if((ch>=97 && ch <= 122) || (ch>=65 && ch<=90) || (ch>='0' && ch<='9' )) {
+				continue;
+			}else
+				return false;
+		}
+		return true;
+	}
+	
+	
+	private String getEncryptedPassword(String password) {
+		
+		char[] passwordChar = password.toCharArray();
+		
+		for(int i=0; i< passwordChar.length; i++) {
+			if(passwordChar[i] == 'Z' || passwordChar[i] == 'z' || passwordChar[i] == '9') {
+				switch (passwordChar[i]) {
+				case 'z':
+					passwordChar[i] = 'a';
+					break;
+				case 'Z':
+					passwordChar[i] = 'A';
+					break;
+				case '9':
+					passwordChar[i] = '0';
+					break;
+				}
+			}else {
+				passwordChar[i] = (char) (passwordChar[i]+1);
+			}
+				}
+		
+		return String.valueOf(passwordChar);
 	}
 
 }
