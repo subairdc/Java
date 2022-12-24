@@ -1,6 +1,7 @@
 package com.subairdc.advance.applications.BankingApplication.Bank;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.subairdc.advance.applications.BankingApplication.Customer.Customer;
@@ -8,6 +9,7 @@ import com.subairdc.advance.applications.BankingApplication.Customer.Customer;
 public class Bank {
 	
 	public static List<Customer> customersList = new ArrayList<>();
+	public static HashMap<Integer, Customer> customerMap = new HashMap<Integer, Customer>();
 	
 	public static int refCustomerId;
 	public static long refAccountNo;

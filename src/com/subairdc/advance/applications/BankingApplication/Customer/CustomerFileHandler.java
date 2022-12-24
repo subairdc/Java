@@ -40,7 +40,10 @@ public class CustomerFileHandler {
 		
 		while(customerInfo != null) {
 			// add customer to list after the separate word in String
-			Bank.customersList.add(castStringToCustomer(customerInfo)); 
+			
+			Customer customerClass = castStringToCustomer(customerInfo);
+			Bank.customersList.add(customerClass);
+			Bank.customerMap.put(customerClass.getCutomerId(), customerClass);
 			customerInfo = reader.readLine();
 		}
 		

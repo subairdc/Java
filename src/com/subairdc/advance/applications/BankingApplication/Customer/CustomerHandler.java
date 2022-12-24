@@ -78,22 +78,38 @@ public class CustomerHandler {
 		for(int i=0; i< passwordChar.length; i++) {
 			if(passwordChar[i] == 'Z' || passwordChar[i] == 'z' || passwordChar[i] == '9') {
 				switch (passwordChar[i]) {
-				case 'z':
-					passwordChar[i] = 'a';
-					break;
-				case 'Z':
-					passwordChar[i] = 'A';
-					break;
-				case '9':
-					passwordChar[i] = '0';
-					break;
+					case 'z':
+						passwordChar[i] = 'a';
+						break;
+					case 'Z':
+						passwordChar[i] = 'A';
+						break;
+					case '9':
+						passwordChar[i] = '0';
+						break;
 				}
 			}else {
 				passwordChar[i] = (char) (passwordChar[i]+1);
 			}
-				}
-		
+		}
 		return String.valueOf(passwordChar);
+	}
+	
+	public void authenticateCustomer(int customerId, String Password) {
+		String encrpted = getEncryptedPassword(Password);
+		
+		Customer customer = Bank.customerMap.get(customerId);
+		
+		if(customer == null) {
+			System.out.println("Invalid CustomerId");
+			return;
+		}
+		
+		if(encrpted.equals(customer.getPassword())){
+			System.out.println("Valid Password");
+		}else {
+			System.out.println("Invalid Password");
+		}
 	}
 
 }
