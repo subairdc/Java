@@ -7,7 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.util.Iterator;
+import java.util.Set;
 
 import com.subairdc.advance.applications.BankingApplication.Bank.Bank;
 
@@ -75,8 +76,31 @@ public class CustomerFileHandler {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-			writer.write("\n"+customer.toString());
+			writer.write(customer.toString()+"\n");
 			writer.flush();
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void finalizeFile() throws IOException {
+		File file = new File(fileName);
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			
+			Set keySet = Bank.customerMap.keySet();
+			Iterator iterator = keySet.iterator();
+			
+			while (iterator.hasNext()) {
+				int customerId = (int) iterator.next();
+				Customer customer = Bank.customerMap.get(customerId);
+				writer.write(customer.toString()+"\n");
+			}
+			
+			writer.flush();
+			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import com.subairdc.advance.applications.BankingApplication.Bank.Bank;
+import com.subairdc.advance.applications.BankingApplication.Transaction.Transaction;
+import com.subairdc.advance.applications.BankingApplication.Transaction.TransactionHandler;
 
 public class CustomerHandler {
 	
-	public void addCustomer() {
+	public void addCustomer() throws IOException {
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -44,17 +46,21 @@ public class CustomerHandler {
 		);
 		Bank.customersList.add(customer);
 		
+		
 		System.out.println(customer.toString()); //print new Customer Details
 		
-		//add customer details to the text file
-		try {
-			CustomerFileHandler.getInstance().addCustomerToFile(customer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		CustomerFileHandler.getInstance().addCustomerToFile(customer);
 		
+		logTransaction(Bank.refCustomerId);
 		
+	}
+
+	private void logTransaction(int CustomerId) {
 		
+		Transaction transaction = new Transaction(1, "Opening", 10000, 10000);
+		
+		TransactionHandler transactionHandler = new TransactionHandler();
+		transactionHandler.writeTransaction(CustomerId, transaction);
 	}
 
 	private boolean isValidPassword(String password) {
@@ -95,21 +101,23 @@ public class CustomerHandler {
 		return String.valueOf(passwordChar);
 	}
 	
-	public void authenticateCustomer(int customerId, String Password) {
+	public boolean authenticateCustomer(int customerId, String Password) {
 		String encrpted = getEncryptedPassword(Password);
 		
 		Customer customer = Bank.customerMap.get(customerId);
 		
 		if(customer == null) {
 			System.out.println("Invalid CustomerId");
-			return;
+			return false;
 		}
 		
 		if(encrpted.equals(customer.getPassword())){
-			System.out.println("Valid Password");
+			System.out.println("Valid User");
+			return true;
 		}else {
 			System.out.println("Invalid Password");
 		}
+		return false;
 	}
 
 }
