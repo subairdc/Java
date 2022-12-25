@@ -1,6 +1,8 @@
 package com.subairdc.advance.applications.BankingApplication.Bank;
 
 import com.subairdc.advance.applications.BankingApplication.Customer.Customer;
+import com.subairdc.advance.applications.BankingApplication.Transaction.Transaction;
+import com.subairdc.advance.applications.BankingApplication.Transaction.TransactionHandler;
 
 public class AccountActionHandler {
 	
@@ -17,6 +19,13 @@ public class AccountActionHandler {
 		customer.setBalance(balance);
 		
 		Bank.customerMap.put(customerId, customer);
+		
+		TransactionHandler transactionHandler = new TransactionHandler();
+		int lastTransactionId = transactionHandler.getLastTransaction(customerId);
+		
+		Transaction transaction = new Transaction(++lastTransactionId, "Deposit", amount, balance);
+		transactionHandler.writeTransaction(customerId, transaction);
+		
 	}
 	
 	public boolean withDrawl(int customerId, double amount) {
@@ -29,6 +38,13 @@ public class AccountActionHandler {
 		if(balance>=1000) {
 			customer.setBalance(balance);
 			Bank.customerMap.put(customerId, customer);
+			
+			TransactionHandler transactionHandler = new TransactionHandler();
+			int lastTransactionId = transactionHandler.getLastTransaction(customerId);
+			
+			Transaction transaction = new Transaction(++lastTransactionId, "withDraw", amount, balance);
+			transactionHandler.writeTransaction(customerId, transaction);
+			
 			return true;
 		}
 		System.out.println("Insuficiant Balance");
@@ -52,6 +68,10 @@ public class AccountActionHandler {
 		if(isSuccessWithdrawl) {
 			deposit(toCustomerId, amount);
 		}
+		
+	}
+	
+	private void logTransaction(int customerId, Transaction transaction) {
 		
 	}
 

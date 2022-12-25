@@ -9,6 +9,7 @@ import com.subairdc.advance.applications.BankingApplication.Bank.Bank;
 import com.subairdc.advance.applications.BankingApplication.Customer.Customer;
 import com.subairdc.advance.applications.BankingApplication.Customer.CustomerFileHandler;
 import com.subairdc.advance.applications.BankingApplication.Customer.CustomerHandler;
+import com.subairdc.advance.applications.BankingApplication.Transaction.TransactionHandler;
 
 public class Main {
 	
@@ -33,7 +34,7 @@ public class Main {
 	
 	public static void printMenu() {
 		System.out.println("Please Select Below Option: "+
-				"\n 1 - Create User \n 2 - Deposit \n 3 - With Drawl \n 4 - Fund Transfer");
+				"\n 1 - Create User \n 2 - Deposit \n 3 - With Drawl \n 4 - Fund Transfer \n 5 - Print Transaction History");
 		try {
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt(); 
@@ -56,6 +57,9 @@ public class Main {
 				case 4:
 					transferAmount();
 					fileHandler.finalizeFile();
+					break;
+				case 5:
+					transactionHistory();
 					break;
 				default:
 					System.out.println("Invalid Option");
@@ -133,5 +137,25 @@ public class Main {
 			accountHandler.transferAmount(customerId, toCustomerId, amount);
 		}
 	
-}
+	}
+	
+	private static void transactionHistory() {
+		
+		CustomerHandler customerHandler = new CustomerHandler();
+		AccountActionHandler accountHandler = new AccountActionHandler();
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter CustomerId: ");
+		int customerId = sc.nextInt();
+		
+		System.out.print("Enter Password: ");
+		String password = sc.next();
+		
+		if(customerHandler.authenticateCustomer(customerId, password)) {
+			System.out.println("***** Transaction History *****");
+			TransactionHandler transactionHandler = new TransactionHandler();
+			transactionHandler.printTransaction(customerId);
+		}
+	}
 }
