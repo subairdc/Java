@@ -9,8 +9,8 @@ public class SecondLargestElement {
 
 		int n= arr.length;
 		sortArray(arr, n);
-		//removeDuplicateElement(arr, n); // another way
-		secondLargest(arr, n);
+		removeDuplicateElement(arr, n);
+		//secondLargest(arr, n); //its not work properly for third largest
 
 	}
 

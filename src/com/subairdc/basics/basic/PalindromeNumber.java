@@ -25,7 +25,7 @@ public class PalindromeNumber {
 		
 		temp=num;
 		
-		while(temp>1) {
+		while(temp>0) {
 			r = temp%10;
 			sum = (sum*10) + r;
 			temp /= 10;
