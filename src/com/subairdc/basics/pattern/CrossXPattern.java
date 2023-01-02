@@ -14,9 +14,7 @@ public class CrossXPattern {
 		System.out.print("Enter the String(Odd No. char):");
 		
 		string = sc.nextLine();
-		
 		int n = string.length();
-		int r =n;
 		
 		if(n%2==0) {
 			System.out.println("The given word "+string+" is even no. of char. That's not work properly");
@@ -25,17 +23,13 @@ public class CrossXPattern {
 		
 		for(int i =0; i<n; i++) {
 			for(int j=0; j<n; j++) {
-				if(i==j) {
-					System.out.print(string.charAt(i));
-				}else if((i+j)==n-1){
-					System.out.print(string.charAt(r-1));
+				if(i==j || (i+j)==n-1){
+					System.out.print(string.charAt(j));
 				}else
 					System.out.print(" ");
 			}
 			System.out.println();
-			r--;
 		}
-
 	}
 
 }
