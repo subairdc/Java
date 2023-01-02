@@ -15,28 +15,23 @@ public class PalindromeNumber {
 		System.out.print("Enter the number: ");
 		num = sc.nextInt();
 		
-		palindrome(num);
+		System.out.println(palindrome(num));
 
 	}
 
-	private static void palindrome(int num) {
+	private static boolean palindrome(int num) {
 		
-		int temp,r,sum=0;
-		
-		temp=num;
-		
-		while(temp>0) {
-			r = temp%10;
-			sum = (sum*10) + r;
-			temp /= 10;
-		}
-		
-		if(sum == num) {
-			System.out.println("The given number "+ num +" is Palindrome");
-		}else
-			System.out.println("The given number "+ num +" is not a Palindrome");
+		if(num<0 || (num % 10 == 0 && num !=0))
+            return false;
 
-		
+        int reverseNum=0;
+
+        while(num>reverseNum){
+            reverseNum = (reverseNum*10) + (num % 10);
+            num /=10;
+        }
+
+        return num == reverseNum || num == reverseNum /10;		
 	}
 
 }
